@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-meteor && > meteor.log
+meteor > meteor.log
