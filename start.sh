@@ -1,2 +1,3 @@
 #!/usr/bin/env bash
-meteor > meteor.log
+nohup meteor 0<&- &> meteor.log &
+exit
