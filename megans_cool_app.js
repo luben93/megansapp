@@ -1,31 +1,18 @@
 if (Meteor.isClient) {
-  // counter starts at 0
-  Session.setDefault('counter', 0);
-
-  Template.hello.helpers({
-    counter: function () {
-      arr=['jag älskar dig Megan',
-      'i love you Megan',
-      '<3',
-      'du är mitt livs kärlek',
-      'mitt hjärta slår för dig']
-      return arr[Session.get('counter')];
-    }
-  });
-
-  Template.hello.events({
-    'click button': function () {
-      // increment the counter when button is clicked
-      
-
-      Session.set('counter',Math.floor((Math.random() * 5)));
-      
-    }
+  // This code only runs on the client
+  Template.body.helpers({
+    tasks: [
+      { text: "This is task 1" },
+      { text: "This is task 2" },
+      { text: "This is task 3" }
+    ]
   });
 }
 
+
 if (Meteor.isServer) {
   Meteor.startup(function () {
+      //var app = require(myMain);
     // code to run on server at startup
   });
 }
