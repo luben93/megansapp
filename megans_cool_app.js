@@ -1,12 +1,28 @@
-Tasks = new Mongo.Collection("tasks");
-
 if (Meteor.isClient) {
+
+  var loves=new Array();
+
+  Tasks = new Mongo.Collection("tasks");
+  var topPosts = Tasks.find({}, {sort: {score: -1}});
+  var count = 0;
+  topPosts.forEach(function (post) {
+    loves.push(post.text)
+    //console.log("Title of post " + count + ": " + post.title);
+    count += 1;
+  });
+  Session.setDefault('counter', 0);
+
+  //------------------------------------------------------------
   // This code only runs on the client
   Template.body.helpers({
   tasks: function () {
     // Show newest tasks first
     return Tasks.find({}, {sort: {createdAt: -1}});
   }
+  'click button': function () {
+      // random the counter when button is clicked
+      Session.set('counter',Math.floor((Math.random() * count)));
+    }
 });
   // Inside the if (Meteor.isClient) block, right after Template.body.helpers:
 Template.body.events({
@@ -26,8 +42,17 @@ Template.body.events({
     // Prevent default form submit
     return false;
   }
-});
-}
+
+  
+  
+  counter: function () {
+      return Tasks.find().skip(Session.get('counter')).limit(1)
+     // return loves[Session.get('counter')];
+    }
+  
+  });
+
+
 
 
 if (Meteor.isServer) {
